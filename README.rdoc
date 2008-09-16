@@ -40,10 +40,11 @@ see details: #{RAILS_ROOT}/config/application.yml
    http://openidenabled.com/ruby-openid/
 1. move to openid_fake_server dir.
 1. rm -rf *
-1. git checkout <commit> examples/rails_openid
+1. git checkout <commit> examples
 1. mv examples/rails_openid/* .
+1. mv examples/discover script/
 1. mv README README.orig
 1. rm -rf examples/rails_openid
 1. git rm -r --cached examples
 1. git add . (and git rm appropriately)
-1. commit and tag it. 'copied from ruby-openid 2.x.x'
+1. commit it and tag ig. 'copied from ruby-openid 2.x.x'
