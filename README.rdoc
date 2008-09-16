@@ -1,6 +1,38 @@
 = OpenID fake server
 
-This rails app based on ruby-openid examples/rails_openid w/ some arrangement.
+This rails app is intended to running out of the box.
+It is based on ruby-openid examples/rails_openid w/ some arrangement.
+
+== Prerequisite
+
+* Rails 2.1.1
+* mongrel
+* sqlite3 and sqlite3-ruby
+
+== How to use
+
+=== Start
+
+$ git clone git://github.com/kakutani/openid_fake_server.git
+$ cd open_id_fake_server
+$ rake openid:server:start
+
+openid_fake_server runs in background.
+access http://localhost:3333 via browser.
+
+=== Stop
+
+$ cd open_id_fake_server
+$ rake openid:server:stop
+
+=== Restart
+
+$ cd open_id_fake_server
+$ rake openid:server:restart
+
+=== customize
+
+see details: #{RAILS_ROOT}/config/application.yml
 
 == Upgrading (personally memo...)
 
