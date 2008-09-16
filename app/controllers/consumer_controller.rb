@@ -14,9 +14,15 @@ class ConsumerController < ApplicationController
 
   def start
     begin
-      oidreq = consumer.begin(params[:openid_identifier])
+      identifier = params[:openid_identifier]
+      if identifier.nil?
+        flash[:error] = "Enter an OpenID identifier"
+        redirect_to :action => 'index'
+        return
+      end
+      oidreq = consumer.begin(identifier)
     rescue OpenID::OpenIDError => e
-      flash[:error] = "Discovery failed for #{params[:openid_identifier]}: #{e}"
+      flash[:error] = "Discovery failed for #{identifier}: #{e}"
       redirect_to :action => 'index'
       return
     end
@@ -45,7 +51,7 @@ class ConsumerController < ApplicationController
     if oidreq.send_redirect?(realm, return_to, params[:immediate])
       redirect_to oidreq.redirect_url(realm, return_to, params[:immediate])
     else
-      @form_text = oidreq.form_markup(realm, return_to, params[:immediate], {'id' => 'openid_form'})
+      render :text => oidreq.html_markup(realm, return_to, params[:immediate], {'id' => 'openid_form'})
     end
   end
 
@@ -86,8 +92,8 @@ class ConsumerController < ApplicationController
         else
           pape_message << ", but the server did not report one."
         end
-        if pape_resp.auth_age
-          pape_message << "<br><b>Authentication age:</b> #{pape_resp.auth_age} seconds"
+        if pape_resp.auth_time
+          pape_message << "<br><b>Authentication time:</b> #{pape_resp.auth_time} seconds"
         end
         if pape_resp.nist_auth_level
           pape_message << "<br><b>NIST Auth Level:</b> #{pape_resp.nist_auth_level}"
