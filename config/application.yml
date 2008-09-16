@@ -1,0 +1,4 @@
+server_type: mongrel
+port: 3333
+environment: production
+binding: 127.0.0.1
